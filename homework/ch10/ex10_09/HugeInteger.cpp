@@ -162,7 +162,9 @@ bool HugeInteger::operator>(const HugeInteger& num) const {
 	return cmp(num, operation);
 }
 
-bool HugeInteger::operator>(int num) const { return *this > HugeInteger(num); }
+bool HugeInteger::operator>(int num) const {
+	return *this > HugeInteger(num);
+}
 
 bool HugeInteger::operator>(const std::string& num) const {
 	return *this > HugeInteger(num);
@@ -186,7 +188,9 @@ bool HugeInteger::operator<(const HugeInteger& num) const {
 	return cmp(num, operation);
 }
 
-bool HugeInteger::operator<(int num) const { return *this < HugeInteger(num); }
+bool HugeInteger::operator<(int num) const {
+	return *this < HugeInteger(num);
+}
 
 bool HugeInteger::operator<(const std::string& num) const {
 	return *this < HugeInteger(num);
