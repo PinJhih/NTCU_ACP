@@ -97,9 +97,10 @@ HugeInteger HugeInteger::operator*(const string& num) const {
 }
 
 HugeInteger HugeInteger::operator/(const HugeInteger& num) const {
-	HugeInteger d = *this, result;
 	if (*this < num)
 		return 0;
+
+	// 確認兩個數字的位數
 	int len = 0, lenNum = 0;
 	while (len != digits and integer[len] == 0) {
 		len++;
@@ -110,15 +111,19 @@ HugeInteger HugeInteger::operator/(const HugeInteger& num) const {
 	len = digits - len;
 	lenNum = digits - lenNum;
 
-	int i = digits - 1 - len + lenNum;
+	HugeInteger d = *this, result;
+	int i = digits - 1 - len + lenNum;  // 商最左位的位置
 	for (; i != digits; i++) {
-		HugeInteger temp;
+		HugeInteger temp;  // 除數左移的結果
+		// 把除數左移 直到除數和被除數位數相同
 		for (int j = 0; j != lenNum; j++) {
 			temp.integer[i - j] = num.integer[digits - 1 - j];
 		}
+
+		// 不斷減去 temp 直到 temp 比 d 大
 		while (temp <= d) {
 			d = d - temp;
-			result.integer[i]++;
+			result.integer[i]++;  // 每減一次就在商的第 i 位加一
 		}
 	}
 	return result;
