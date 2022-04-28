@@ -1,5 +1,15 @@
 // Member-function definitions for class SavingsAccount.
+#include "SavingsAccount.h"  // SavingsAccount class definition
+
 #include <stdexcept>
-#include "SavingsAccount.h" // SavingsAccount class definition
 using namespace std;
 
+SavingsAccount::SavingsAccount(double balance, double interestRate)
+	: Account{balance}, interestRate{interestRate} {
+	Account::credit(calculateInterest());
+}
+
+double SavingsAccount::calculateInterest() {
+	return getBalance() * interestRate;
+}
+	

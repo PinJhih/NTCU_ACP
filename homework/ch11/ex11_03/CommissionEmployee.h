@@ -3,37 +3,36 @@
 #ifndef COMMISSION_H
 #define COMMISSION_H
 
-#include <string> // C++ standard string class
+#include <string>  // C++ standard string class
 
-class CommissionEmployee
-{
-public:
-   CommissionEmployee( const std::string &, const std::string &, 
-      const std::string &, double = 0.0, double = 0.0 );
-   
-   void setFirstName( const std::string & ); // set first name
-   std::string getFirstName() const; // return first name
+class CommissionEmployee {
+   public:
+	CommissionEmployee(const std::string &, const std::string &,
+	                   const std::string &, double = 0.0, double = 0.0);
 
-   void setLastName( const std::string & ); // set last name
-   std::string getLastName() const; // return last name
+	void setFirstName(const std::string &);  // set first name
+	std::string getFirstName() const;        // return first name
 
-   void setSocialSecurityNumber( const std::string & ); // set SSN
-   std::string getSocialSecurityNumber() const; // return SSN
+	void setLastName(const std::string &);  // set last name
+	std::string getLastName() const;        // return last name
 
-   void setGrossSales( double ); // set gross sales amount
-   double getGrossSales() const; // return gross sales amount
+	void setSocialSecurityNumber(const std::string &);  // set SSN
+	std::string getSocialSecurityNumber() const;        // return SSN
 
-   void setCommissionRate( double ); // set commission rate (percentage)
-   double getCommissionRate() const; // return commission rate
+	void setGrossSales(double);    // set gross sales amount
+	double getGrossSales() const;  // return gross sales amount
 
-   double earnings() const; // calculate earnings
-   void print() const; // print CommissionEmployee object
-private:
-   std::string firstName;
-   std::string lastName;
-   std::string socialSecurityNumber;
-   double grossSales; // gross weekly sales
-   double commissionRate; // commission percentage
-}; // end class CommissionEmployee
+	void setCommissionRate(double);    // set commission rate (percentage)
+	double getCommissionRate() const;  // return commission rate
+
+	double earnings() const;  // calculate earnings
+	void print() const;       // print CommissionEmployee object
+   private:
+	std::string firstName;
+	std::string lastName;
+	std::string socialSecurityNumber;
+	double grossSales;      // gross weekly sales
+	double commissionRate;  // commission percentage
+};                          // end class CommissionEmployee
 
 #endif
