@@ -10,6 +10,5 @@ SavingsAccount::SavingsAccount(double balance, double interestRate)
 }
 
 double SavingsAccount::calculateInterest() {
-	return getBalance() * interestRate;
+	return getBalance() * interestRate / 100.;
 }
-	

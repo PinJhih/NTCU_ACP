@@ -25,5 +25,5 @@ double TwoDayPackage::getFlatFee() const {
 }
 
 double TwoDayPackage::calculateCost() const {
-	return Package::calculateCost() + flatFee * getWeight();
+	return Package::calculateCost() + flatFee ;
 }
