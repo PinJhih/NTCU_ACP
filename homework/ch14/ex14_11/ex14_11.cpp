@@ -10,9 +10,8 @@ using namespace std;
 void init();
 void listAll(fstream&);
 void updateRecord(fstream&);
-// void insertRecord(fstream&);
-// void deleteRecord(fstream&);
-void printHW(const Hardware& hw);
+void insertRecord(fstream&);
+void deleteRecord(fstream&);
 
 int main() {
 	while (1) {
@@ -47,10 +46,10 @@ int main() {
 				updateRecord(hwFile);
 				break;
 			case 3:
-				// insertRecord(hwFile);
+				insertRecord(hwFile);
 				break;
 			case 4:
-				// deleteRecord(hwFile);
+				deleteRecord(hwFile);
 				break;
 		}
 	}
@@ -64,11 +63,20 @@ void clearFile(fstream& file) {
 	}
 }
 
-void updateFile(fstream& file, Hardware& hw) {
-	unsigned long long pos = hw.getPartNumber() * sizeof(Hardware);
+void setRecord(fstream& file, int partNumber, Hardware& hw) {
+	unsigned long long pos = partNumber * sizeof(Hardware);
 	file.clear();
 	file.seekp(pos);
-	file.write(reinterpret_cast<char*>(&hw), sizeof(Hardware));
+	file.write(reinterpret_cast<const char*>(&hw), sizeof(Hardware));
+}
+
+Hardware getRecord(fstream& file, int partNumber) {
+	unsigned long long pos = partNumber * sizeof(Hardware);
+	Hardware hw;
+	file.clear();
+	file.seekg(pos);
+	file.read(reinterpret_cast<char*>(&hw), sizeof(Hardware));
+	return hw;
 }
 
 void init() {
@@ -87,16 +95,18 @@ void init() {
 			continue;
 
 		cout << "Enter the tool name: ";
+		cin.ignore();
 		getline(cin, name);
 
-		cout << "Enter quantity and price:";
+		cout << "Enter quantity and price: ";
 		cin >> quantity >> price;
 
 		Hardware hw{number, name, quantity, price};
-		updateFile(file, hw);
+		setRecord(file, number, hw);
 	}
 
 	file.close();
+	cout << endl;
 }
 
 void printHW(const Hardware& hw) {
@@ -121,27 +131,71 @@ void listAll(fstream& inputFile) {
 		inputFile.read(reinterpret_cast<char*>(&hw), sizeof(Hardware));
 		state = inputFile.eof();
 	}
+	cout << endl;
 }
 
-void updateRecord(fstream& ouputFile) {
+void updateRecord(fstream& outputFile) {
 	int number{0}, quantity;
 	float price;
 	string name;
 
 	cout << "Enter the part number (0 - 99): ";
 	cin >> number;
+	while (number < 0 or number > 99) {
+		cout << "Enter the part number (0 - 99): ";
+		cin >> number;
+	}
 
+	if (getRecord(outputFile, number).getPartNumber() == -1)
+		cout << "No infomation." << endl;
+	else {
+		cout << "Enter the tool name: ";
+		cin.ignore();
+		getline(cin, name);
+
+		cout << "Enter quantity and price: ";
+		cin >> quantity >> price;
+
+		Hardware hw{number, name, quantity, price};
+		setRecord(outputFile, number, hw);
+	}
+	cout << endl;
+}
+
+void insertRecord(fstream& file) {
+	int number{0}, quantity;
+	float price;
+	string name;
+
+	cout << "Enter the part number (0 - 99): ";
+	cin >> number;
 	while (number < 0 or number > 99) {
 		cout << "Enter the part number (0 - 99): ";
 		cin >> number;
 	}
 
 	cout << "Enter the tool name: ";
+	cin.ignore();
 	getline(cin, name);
 
-	cout << "Enter quantity and price:";
+	cout << "Enter quantity and price: ";
 	cin >> quantity >> price;
 
 	Hardware hw{number, name, quantity, price};
-	updateFile(ouputFile, hw);
+	setRecord(file, number, hw);
+	cout << endl;
+}
+
+void deleteRecord(fstream& file) {
+	int number{0};
+	cout << "Enter the part number (0 - 99): ";
+	cin >> number;
+	while (number < 0 or number > 99) {
+		cout << "Enter the part number (0 - 99): ";
+		cin >> number;
+	}
+
+	Hardware hw;
+	setRecord(file, number, hw);
+	cout << endl;
 }
