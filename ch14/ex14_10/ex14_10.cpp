@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "Person.cpp"
+#include "Person.h"
 
 using namespace std;
 
@@ -76,6 +76,7 @@ int main() {
 		file.write((const char *)(&p), sizeof(Person));
 	}
 
+	cout << endl;
 	file.clear();
 	file.seekg(0);
 	while (!file.eof()) {
