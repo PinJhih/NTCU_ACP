@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include "Hardware.cpp"
+#include "Hardware.h"
 
 using namespace std;
 
