@@ -49,6 +49,24 @@ int main() {
 
 	fstream file{"person_info.dat", ios::in | ios::out | ios::binary};
 
+	for (int i = 0; i != 10; i++) {
+		int num;
+		while (1) {
+			cout << "Enter a number(0-99): ";
+			cin >> num;
+			if (num >= 0 and num <= 99)
+				break;
+		}
+
+		string firstName, lastName;
+		int age;
+		cout << "Enter first name, last name and age: ";
+		cin >> firstName >> lastName >> age;
+		Person p{num, age, lastName, firstName};
+		file.seekp(num * sizeof(Person));
+		file.write((const char *)(&p), sizeof(Person));
+	}
+
 	file.clear();
 	file.seekg(0);
 	while (!file.eof()) {
