@@ -52,6 +52,7 @@ int main() {
 				deleteRecord(hwFile);
 				break;
 		}
+		hwFile.clear();
 	}
 }
 
@@ -65,7 +66,6 @@ void clearFile(fstream& file) {
 
 void setRecord(fstream& file, int partNumber, Hardware& hw) {
 	unsigned long long pos = partNumber * sizeof(Hardware);
-	file.clear();
 	file.seekp(pos);
 	file.write(reinterpret_cast<const char*>(&hw), sizeof(Hardware));
 }
@@ -73,7 +73,6 @@ void setRecord(fstream& file, int partNumber, Hardware& hw) {
 Hardware getRecord(fstream& file, int partNumber) {
 	unsigned long long pos = partNumber * sizeof(Hardware);
 	Hardware hw;
-	file.clear();
 	file.seekg(pos);
 	file.read(reinterpret_cast<char*>(&hw), sizeof(Hardware));
 	return hw;
@@ -121,7 +120,6 @@ void listAll(fstream& inputFile) {
 	cout << "Record#    Tool name                Quantity    Cost" << endl;
 
 	Hardware hw;
-	inputFile.clear();
 	inputFile.seekg(0, ios::beg);
 	inputFile.read(reinterpret_cast<char*>(&hw), sizeof(Hardware));
 	bool state = inputFile.eof();
