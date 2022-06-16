@@ -58,6 +58,15 @@ int main() {
 				break;
 		}
 
+		Person temp;
+		file.seekg(num * sizeof(Person));
+		file.read((char *)(&temp), sizeof(Person));
+
+		if (temp.getId() == -1) {
+			cout << "No info" << endl;
+			continue;
+		}
+
 		string firstName, lastName;
 		int age;
 		cout << "Enter first name, last name and age: ";
