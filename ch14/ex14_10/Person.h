@@ -9,7 +9,7 @@ class Person {
 	int id;
 
    public:
-	Person(int = 0, int = 0, string = ""s, string = ""s);
+	Person(int = -1, int = 0, std::string = "", std::string = "");
 
 	void setId(int);
 	int getId() const;
